@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.itboot.mb.Mapper.MethodMapper">
+
+	<select id="selectMethod" resultType="Method">
+		select * from methods
+		<where>
+			<if test="language != null">
+				language = #{language, jdbcType=CHAR}
+			</if>
+			<if test="methodName != null">
+				and methodname like concat('%',#{methodName, jdbcType=CHAR},'%') 
+			</if>
+			<if test="type != null">
+				and type = #{type, jdbcType=CHAR} 
+			</if>
+			<if test="keyword1 != null">
+				and keyword1 like concat('%',#{keyword1, jdbcType=CHAR},'%') 
+			</if>
+			<if test="keyword2 != null">
+				and keyword2 like concat('%',#{keyword2, jdbcType=CHAR},'%')
+			</if>
+			<if test="keyword3 != null">
+				and keyword3 like concat('%',#{keyword3, jdbcType=CHAR},'%') 
+			</if>
+		</where>
+	</select>
+
+ 	<select id="selectAll" resultType="Method">
+		select * from methods
+	</select>
+	 
+	<select id="selectById" resultType="Method">
+		select * from methods where id = #{id}
+	</select>
+	
+	<select id="selectLanguage" resultType="String">
+		select distinct language from methods;
+	</select>
+	
+	<select id="selectType" resultType="String">
+		select distinct type from methods;
+	</select>
+	
+	<insert id="insert">
+		insert into methods
+		(
+			language, 
+			methodname, 
+			type, 
+			description, 
+			keyword1, 
+			keyword2, 
+			keyword3
+		)
+		value
+		(
+			#{language, jdbcType=CHAR}, 
+			#{methodName, jdbcType=CHAR}, 
+			#{type, jdbcType=CHAR}, 
+			#{description, jdbcType=CHAR}, 
+			#{keyword1, jdbcType=CHAR}, 
+			#{keyword2, jdbcType=CHAR}, 
+			#{keyword3, jdbcType=CHAR}
+		)
+	</insert>
+	
+	<update id="edit">
+		update methods set 
+		language = #{language, jdbcType=CHAR},
+		methodname =  #{methodName, jdbcType=CHAR},
+		type = #{type, jdbcType=CHAR},
+		description = #{description, jdbcType=CHAR},
+		keyword1 = #{keyword1, jdbcType=CHAR},
+		keyword2 = #{keyword2, jdbcType=CHAR},
+		keyword3 = #{keyword3, jdbcType=CHAR}
+		where
+		id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from methods where id = #{id}
+	</delete>
+</mapper>
