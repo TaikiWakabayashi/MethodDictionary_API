@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### yaml ###
+/src/main/resources/application.yaml
+
+### DSStore ###
+.DS_Store
